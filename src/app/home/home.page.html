@@ -3,36 +3,80 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-item id="icon-container" lines="none">
-    <ion-img id="icono" src="assets/Coronavirus (1).png"></ion-img>
+  <ion-item  id="icon-container" lines="none">
+    <ion-img id="icono" src="assets/Coronavirus (1).png"></ion-img>  <strong>COVID-19 app</strong>
   </ion-item>
 
   <div id="container">
-    <strong>COVID-19 app</strong>
-    <br>
+  
     <ion-item lines="none">
       <ion-label *ngIf="cargando">
         <ion-progress-bar type="indeterminate"></ion-progress-bar>
       </ion-label>
     </ion-item>
     <div *ngIf="!cargando">
-      <ion-item>
-        <ion-label>Total casos</ion-label>
-        <p>{{casos.cases}}</p>
-      </ion-item>
-      <ion-item>
-        <ion-label>Total muertos</ion-label>
-        <p>{{casos.deaths}}</p>
-      </ion-item>
-      <ion-item>
-        <ion-label>Total recuperados</ion-label>
-        <p>{{casos.recovered}}</p>
-      </ion-item>
+      <ion-item-group>
+        <ion-item>
+          <ion-label>Total casos</ion-label>
+          <p>{{casos.cases}}</p>
+        </ion-item>
+        <ion-item>
+          <ion-label>Total muertos</ion-label>
+          <p>{{casos.deaths}}</p>
+        </ion-item>
+        <ion-item>
+          <ion-label>Total recuperados</ion-label>
+          <p>{{casos.recovered}}</p>
+        </ion-item>
+      </ion-item-group>
       <ion-item>
         <ion-label>Total Chile</ion-label>
         <p>{{casosChile.cases}}</p>
       </ion-item>
+
+      <ion-list>
+        <ion-list-header>
+          <ion-label>
+            Buscar País
+          </ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label>País</ion-label>
+          <ion-select (ionChange)="filterCountry($event.detail.value)">
+            <ion-select-option #value1 *ngFor="let pais1 of allCountriesNames">
+              {{pais1}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <ion-item-group *ngIf="paisFiltrado">
+        <ion-item>
+          <ion-label>Total casos</ion-label>
+          <p>{{paisFiltrado.cases}}</p>
+        </ion-item>
+        <ion-item>
+          <ion-label>Hoy</ion-label>
+          <p>{{paisFiltrado.todayCases}}</p>
+        </ion-item>
+        <ion-item>
+          <ion-label>Muertes</ion-label>
+          <p>{{paisFiltrado.deaths}}</p>
+        </ion-item>
+        <ion-item>
+          <ion-label>Muertes Hoy</ion-label>
+          <p>{{paisFiltrado.todayDeaths}}</p>
+        </ion-item>
+        <ion-item>
+          <ion-label>Recuperados</ion-label>
+          <p>{{paisFiltrado.recovered}}</p>
+        </ion-item>
+        <ion-item>
+          <ion-label>Criticos</ion-label>
+          <p>{{paisFiltrado.critical}}</p>
+        </ion-item>
+      </ion-item-group>
+
     </div>
-    
+
   </div>
 </ion-content>

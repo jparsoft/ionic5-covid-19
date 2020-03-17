@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { IPais } from '../model/pais.interface';
 @Injectable({
   providedIn: 'root'
 })
 export class CovidApiService {
 
-  private pathTodo = 'all';
-  private pathXPais = 'countries';
 
   constructor(private client: HttpClient) { }
 
@@ -16,6 +15,8 @@ export class CovidApiService {
     return this.client.get<T>(`${environment.baseUrl}/${path}`
     );
   }
+
+
 
 
 }

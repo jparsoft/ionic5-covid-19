@@ -11,17 +11,14 @@ import { IPais } from '../model/pais.interface';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
-  public muertes;
-  public recuperados;
   public cargando = true;
   public casosChile: IPais;
-  private casos: ITotal;
+  public casos: ITotal;
+  public allCountriesNames;
+  public allCountries;
+  public paisFiltrado;
   constructor(private covidService: CovidApiService, private util: UtilService) {
-    this.util.sleep(60000).then(() => {
-      this.cargando = true;
-      this.cargarDatos();
-    });
+
   }
 
   ionViewWillEnter() {
@@ -29,23 +26,29 @@ export class HomePage {
   }
 
   public getTotales() {
-    this.covidService.get<ITotal>(environment.pathAll).subscribe((result) => {
+    this.covidService.get<ITotal>(environment.pathAll).subscribe((result: ITotal) => {
       this.casos = result;
     });
   }
 
   public getPaises() {
     this.covidService.get<any>(environment.pathCountries).subscribe((result) => {
-      console.log(result);
+
+      this.allCountriesNames = Array.from(result).map((pais: IPais) => pais.country);
+      this.allCountries = Array.from(result).map((pais: IPais) => pais);
 
       Array.from(result).map((pais: IPais) => {
         if (pais.country === 'Chile') {
           this.casosChile = pais;
+          this.cargando = false;
         }
       });
     });
-    console.log(this.casosChile);
-    this.cargando = false;
+  }
+
+  public filterCountry(country: string) {
+    Array.from(this.allCountries).map((pais: IPais) => { if (pais.country === country.replace(/\s/g, '')) { this.paisFiltrado = pais; } });
+
   }
 
   cargarDatos() {

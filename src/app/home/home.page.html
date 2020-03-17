@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item id="icon-container" lines="none">
+    <ion-img id="icono" src="assets/Coronavirus (1).png"></ion-img>
+  </ion-item>
+
+  <div id="container">
+    <strong>COVID-19 app</strong>
+    <br>
+    <ion-item lines="none">
+      <ion-label *ngIf="cargando">
+        <ion-progress-bar type="indeterminate"></ion-progress-bar>
+      </ion-label>
+    </ion-item>
+    <div *ngIf="!cargando">
+      <ion-item>
+        <ion-label>Total casos</ion-label>
+        <p>{{casos.cases}}</p>
+      </ion-item>
+      <ion-item>
+        <ion-label>Total muertos</ion-label>
+        <p>{{casos.deaths}}</p>
+      </ion-item>
+      <ion-item>
+        <ion-label>Total recuperados</ion-label>
+        <p>{{casos.recovered}}</p>
+      </ion-item>
+      <ion-item>
+        <ion-label>Total Chile</ion-label>
+        <p>{{casosChile.cases}}</p>
+      </ion-item>
+    </div>
+  </div>
+</ion-content>
